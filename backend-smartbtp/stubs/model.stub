@@ -1,0 +1,30 @@
+<?php
+
+namespace {{ namespace }};
+
+{{ factoryImport }}use Illuminate\Database\Eloquent\Model;
+
+class {{ class }} extends Model
+{
+    {{ factory }}
+    /**
+     * Les attributs qui peuvent être assignés en masse.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        // Ajoutez vos colonnes ici
+    ];
+
+    /**
+     * Les types à convertir automatiquement.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            // Ajoutez vos conversions ici
+        ];
+    }
+}
