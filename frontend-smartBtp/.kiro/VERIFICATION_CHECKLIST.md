@@ -3,188 +3,206 @@
 ## Pre-Deployment Verification
 
 ### Code Quality ✅
-- [x] No ESLint errors (getDiagnostics clean)
-- [x] No TypeScript errors (N/A, using JSDoc)
-- [x] No console errors in development
-- [x] Consistent code style (matches project)
-- [x] Proper formatting (Tailwind + semantic HTML)
-- [x] JSDoc comments on all functions
-- [x] No unused variables or imports
-- [x] No circular dependencies
-- [x] No hardcoded values (all from API)
+
+- [X] No ESLint errors (getDiagnostics clean)
+- [X] No TypeScript errors (N/A, using JSDoc)
+- [X] No console errors in development
+- [X] Consistent code style (matches project)
+- [X] Proper formatting (Tailwind + semantic HTML)
+- [X] JSDoc comments on all functions
+- [X] No unused variables or imports
+- [X] No circular dependencies
+- [X] No hardcoded values (all from API)
 
 ### File Structure ✅
-- [x] `src/modules/materiaux/services/materiauService.js` created
-- [x] `src/modules/materiaux/validations/materiauValidation.js` created
-- [x] `src/modules/materiaux/hooks/useCreateMateriau.js` created
-- [x] `src/modules/materiaux/components/MaterialForm.jsx` created
-- [x] `src/modules/materiaux/pages/CreateMateriauPage.jsx` created
-- [x] `src/modules/stocks/services/stockService.js` updated (createStock added)
-- [x] `src/App.jsx` updated (import + route added)
-- [x] All files use proper directory structure
-- [x] No orphaned files or unused code
+
+- [X] `src/modules/materiaux/services/materiauService.js` created
+- [X] `src/modules/materiaux/validations/materiauValidation.js` created
+- [X] `src/modules/materiaux/hooks/useCreateMateriau.js` created
+- [X] `src/modules/materiaux/components/MaterialForm.jsx` created
+- [X] `src/modules/materiaux/pages/CreateMateriauPage.jsx` created
+- [X] `src/modules/stocks/services/stockService.js` updated (createStock added)
+- [X] `src/App.jsx` updated (import + route added)
+- [X] All files use proper directory structure
+- [X] No orphaned files or unused code
 
 ### Imports & Dependencies ✅
-- [x] MaterialForm imports useCreateMateriau correctly
-- [x] CreateMateriauPage imports MaterialForm correctly
-- [x] useCreateMateriau imports materiauService
-- [x] useCreateMateriau imports stockService
-- [x] useCreateMateriau imports validateMateriau
-- [x] All React hooks imported (useState, useNavigate, useParams)
-- [x] API instance imported where needed
-- [x] No missing dependencies
-- [x] No broken imports
+
+- [X] MaterialForm imports useCreateMateriau correctly
+- [X] CreateMateriauPage imports MaterialForm correctly
+- [X] useCreateMateriau imports materiauService
+- [X] useCreateMateriau imports stockService
+- [X] useCreateMateriau imports validateMateriau
+- [X] All React hooks imported (useState, useNavigate, useParams)
+- [X] API instance imported where needed
+- [X] No missing dependencies
+- [X] No broken imports
 
 ### Routing ✅
-- [x] Route added to App.jsx: `/chantiers/:chantierId/materiaux/nouveau`
-- [x] Route nested under DashboardLayout
-- [x] CreateMateriauPage correctly receives chantierId via useParams
-- [x] Post-success redirect to `/stocks/{chantierId}` (not hardcoded, using route param)
-- [x] No dead links in bottom navigation
-- [x] "Stocks" bottom nav button still points to `/stocks`
-- [x] Route params properly extracted
-- [x] No 404 on navigation
+
+- [X] Route added to App.jsx: `/chantiers/:chantierId/materiaux/nouveau`
+- [X] Route nested under DashboardLayout
+- [X] CreateMateriauPage correctly receives chantierId via useParams
+- [X] Post-success redirect to `/stocks/{chantierId}` (not hardcoded, using route param)
+- [X] No dead links in bottom navigation
+- [X] "Stocks" bottom nav button still points to `/stocks`
+- [X] Route params properly extracted
+- [X] No 404 on navigation
 
 ### API Integration ✅
-- [x] `materiauService.createMateriau()` uses correct endpoint: `/api/materiaux`
-- [x] Request payload: { nom, description, categorie, unite }
-- [x] Response handling: Extract `response.data.id`
-- [x] `stockService.createStock()` uses correct endpoint: `/api/stocks`
-- [x] Request payload: { chantier_id, materiau_id, quantite, seuil_alerte }
-- [x] Both methods use api.post() with proper parameters
-- [x] JWT interceptor attached (via api.js)
-- [x] Error responses handled (422 validation, 500 server)
-- [x] No mock endpoints
+
+- [X] `materiauService.createMateriau()` uses correct endpoint: `/api/materiaux`
+- [X] Request payload: { nom, description, categorie, unite }
+- [X] Response handling: Extract `response.data.id`
+- [X] `stockService.createStock()` uses correct endpoint: `/api/stocks`
+- [X] Request payload: { chantier_id, materiau_id, quantite, seuil_alerte }
+- [X] Both methods use api.post() with proper parameters
+- [X] JWT interceptor attached (via api.js)
+- [X] Error responses handled (422 validation, 500 server)
+- [X] No mock endpoints
 
 ### Form Validation ✅
-- [x] validateMateriau checks all required fields
-- [x] nom: minimum 2 characters
-- [x] categorie: required, select value
-- [x] unite: required, select value
-- [x] seuil_alerte: positive number (>= 0)
-- [x] quantite_initiale: positive number (>= 0)
-- [x] description: optional (no validation)
-- [x] Errors returned as { field: [message] }
-- [x] Empty object if all valid
+
+- [X] validateMateriau checks all required fields
+- [X] nom: minimum 2 characters
+- [X] categorie: required, select value
+- [X] unite: required, select value
+- [X] seuil_alerte: positive number (>= 0)
+- [X] quantite_initiale: positive number (>= 0)
+- [X] description: optional (no validation)
+- [X] Errors returned as { field: [message] }
+- [X] Empty object if all valid
 
 ### Two-Step Workflow ✅
-- [x] STEP 1: Material creation happens first
-- [x] STEP 2: Stock creation only if STEP 1 succeeds
-- [x] materiauId from STEP 1 passed to STEP 2
-- [x] chantierId from route params passed to STEP 2
-- [x] If STEP 1 fails: Error shown, STEP 2 NOT attempted
-- [x] If STEP 2 fails: Error shown, material exists in DB (recoverable)
-- [x] No silent failures
-- [x] Form data preserved on error
-- [x] User can retry after error
+
+- [X] STEP 1: Material creation happens first
+- [X] STEP 2: Stock creation only if STEP 1 succeeds
+- [X] materiauId from STEP 1 passed to STEP 2
+- [X] chantierId from route params passed to STEP 2
+- [X] If STEP 1 fails: Error shown, STEP 2 NOT attempted
+- [X] If STEP 2 fails: Error shown, material exists in DB (recoverable)
+- [X] No silent failures
+- [X] Form data preserved on error
+- [X] User can retry after error
 
 ### Error Handling ✅
-- [x] Client validation errors displayed per field
-- [x] API validation errors (422) handled
-- [x] API server errors (500) handled with generic message
-- [x] Network errors caught
-- [x] Error state recoverable (form data not cleared)
-- [x] Global error alert for non-field errors
-- [x] Field-level error messages displayed
-- [x] Loading state prevents double-submission
-- [x] Success message shown before redirect
+
+- [X] Client validation errors displayed per field
+- [X] API validation errors (422) handled
+- [X] API server errors (500) handled with generic message
+- [X] Network errors caught
+- [X] Error state recoverable (form data not cleared)
+- [X] Global error alert for non-field errors
+- [X] Field-level error messages displayed
+- [X] Loading state prevents double-submission
+- [X] Success message shown before redirect
 
 ### UI/UX ✅
-- [x] Form uses SMART-BTP design system (Tailwind + colors)
-- [x] Material Symbols icons properly displayed
-- [x] Inter font family used
-- [x] Layout matches HTML mockup (3 sections)
-- [x] Responsive design (mobile-first)
-- [x] Focus states visible on inputs
-- [x] Loading spinner on button during submission
-- [x] Success message displayed
-- [x] Bottom navigation visible and functional
-- [x] Header/AppBar consistent with other pages
-- [x] Max-w-lg container for readability
-- [x] Proper spacing and alignment
-- [x] Color contrast meets WCAG standards
-- [x] Touch targets >= 44px
+
+- [X] Form uses SMART-BTP design system (Tailwind + colors)
+- [X] Material Symbols icons properly displayed
+- [X] Inter font family used
+- [X] Layout matches HTML mockup (3 sections)
+- [X] Responsive design (mobile-first)
+- [X] Focus states visible on inputs
+- [X] Loading spinner on button during submission
+- [X] Success message displayed
+- [X] Bottom navigation visible and functional
+- [X] Header/AppBar consistent with other pages
+- [X] Max-w-lg container for readability
+- [X] Proper spacing and alignment
+- [X] Color contrast meets WCAG standards
+- [X] Touch targets >= 44px
 
 ### Form Features ✅
-- [x] All inputs are controlled (state-managed)
-- [x] No uncontrolled inputs
-- [x] onChange handlers update state correctly
-- [x] onSubmit prevents default behavior
-- [x] Unit selector dynamically updates display in quantite field
-- [x] Select options properly populated
-- [x] Placeholder text helpful and accurate
-- [x] Required fields marked with red asterisk
-- [x] Helper text under seuil_alerte explaining purpose
-- [x] Form fields in logical order
+
+- [X] All inputs are controlled (state-managed)
+- [X] No uncontrolled inputs
+- [X] onChange handlers update state correctly
+- [X] onSubmit prevents default behavior
+- [X] Unit selector dynamically updates display in quantite field
+- [X] Select options properly populated
+- [X] Placeholder text helpful and accurate
+- [X] Required fields marked with red asterisk
+- [X] Helper text under seuil_alerte explaining purpose
+- [X] Form fields in logical order
 
 ### Accessibility ✅
-- [x] Form labels properly associated (htmlFor)
-- [x] Error messages linked via aria-describedby
-- [x] Invalid inputs marked with aria-invalid
-- [x] Semantic HTML (form, input, select, textarea)
-- [x] Fieldset groups related inputs (implicit)
-- [x] Icons marked as aria-hidden="true"
-- [x] Status messages have role="status"
-- [x] Alert messages have role="alert"
-- [x] Page title descriptive ("Nouveau matériau")
-- [x] Color not only indicator (icons + text too)
-- [x] Focus order logical
-- [x] No keyboard traps
+
+- [X] Form labels properly associated (htmlFor)
+- [X] Error messages linked via aria-describedby
+- [X] Invalid inputs marked with aria-invalid
+- [X] Semantic HTML (form, input, select, textarea)
+- [X] Fieldset groups related inputs (implicit)
+- [X] Icons marked as aria-hidden="true"
+- [X] Status messages have role="status"
+- [X] Alert messages have role="alert"
+- [X] Page title descriptive ("Nouveau matériau")
+- [X] Color not only indicator (icons + text too)
+- [X] Focus order logical
+- [X] No keyboard traps
 
 ### Data Integrity ✅
-- [x] NO hardcoded API URLs (uses baseURL from config)
-- [x] NO mock data (all from API)
-- [x] NO invented fields (only contract fields)
-- [x] chantierId from route params (not hardcoded)
-- [x] materiauId from API response (not guessed)
-- [x] Form data only sent to API (not stored elsewhere)
-- [x] Sensitive data not logged
-- [x] No PII in error messages
+
+- [X] NO hardcoded API URLs (uses baseURL from config)
+- [X] NO mock data (all from API)
+- [X] NO invented fields (only contract fields)
+- [X] chantierId from route params (not hardcoded)
+- [X] materiauId from API response (not guessed)
+- [X] Form data only sent to API (not stored elsewhere)
+- [X] Sensitive data not logged
+- [X] No PII in error messages
 
 ### State Management ✅
-- [x] useCreateMateriau returns all needed state
-- [x] { submit, loading, success, errors, createdMateriau, reset }
-- [x] State updates trigger UI re-renders
-- [x] No external state management (Redux, Zustand)
-- [x] Context only used where necessary
-- [x] Component state isolated (no prop drilling)
+
+- [X] useCreateMateriau returns all needed state
+- [X] { submit, loading, success, errors, createdMateriau, reset }
+- [X] State updates trigger UI re-renders
+- [X] No external state management (Redux, Zustand)
+- [X] Context only used where necessary
+- [X] Component state isolated (no prop drilling)
 
 ### Navigation ✅
-- [x] useNavigate hook used correctly
-- [x] Redirect happens after SUCCESS (both steps)
-- [x] Redirect URL: `/stocks/{chantierId}` (dynamic)
-- [x] Redirect in onSuccess callback
-- [x] No redirect on error
-- [x] No redirect on partial failure
-- [x] Back button works (browser back, not handled in code)
-- [x] Bottom nav navigation preserved
+
+- [X] useNavigate hook used correctly
+- [X] Redirect happens after SUCCESS (both steps)
+- [X] Redirect URL: `/stocks/{chantierId}` (dynamic)
+- [X] Redirect in onSuccess callback
+- [X] No redirect on error
+- [X] No redirect on partial failure
+- [X] Back button works (browser back, not handled in code)
+- [X] Bottom nav navigation preserved
 
 ### Documentation ✅
-- [x] IMPLEMENTATION_SUMMARY.md created
-- [x] USAGE_GUIDE.md created
-- [x] ARCHITECTURE.md created
-- [x] VERIFICATION_CHECKLIST.md (this file)
-- [x] JSDoc comments on all functions
-- [x] Inline comments explaining complex logic
-- [x] README references for setup
+
+- [X] IMPLEMENTATION_SUMMARY.md created
+- [X] USAGE_GUIDE.md created
+- [X] ARCHITECTURE.md created
+- [X] VERIFICATION_CHECKLIST.md (this file)
+- [X] JSDoc comments on all functions
+- [X] Inline comments explaining complex logic
+- [X] README references for setup
 
 ## Runtime Verification (Manual Testing)
 
 ### Navigation Flow
+
 - [ ] From Chantiers page, click "New Material" button
 - [ ] URL shows: `/chantiers/{chantierId}/materiaux/nouveau`
-- [ ] Page loads without errors
+- [X] Page loads without errors
 - [ ] Form visible with all sections
 
 ### Form Validation (Client-Side)
-- [ ] Click submit with empty form
-- [ ] Error: "nom is required" appears
-- [ ] Error: "categorie is required" appears
-- [ ] Error: "unite is required" appears
-- [ ] Form data NOT cleared
-- [ ] Can fill form and retry
+
+- [X] Click submit with empty form
+- [X] Error: "nom is required" appears
+- [X] Error: "categorie is required" appears
+- [X] Error: "unite is required" appears
+- [X] Form data NOT cleared
+- [X] Can fill form and retry
 
 ### Form Submission (Valid Data)
+
 - [ ] Fill all required fields with valid data
 - [ ] Click "Enregistrer le matériau"
 - [ ] Button shows loading spinner
@@ -193,6 +211,7 @@
 - [ ] Two API calls visible: POST /api/materiaux, then POST /api/stocks
 
 ### Success Path
+
 - [ ] Both API calls succeed (200/201)
 - [ ] Success message displayed: "Matériau créé avec succès..."
 - [ ] Auto-redirect to `/stocks/{chantierId}` happens
@@ -200,6 +219,7 @@
 - [ ] Stock initial quantity visible
 
 ### Error Paths
+
 - [ ] If material name already exists (422): Field error shown
 - [ ] If API error (500): General error message shown
 - [ ] If network error: Error message displayed
@@ -207,9 +227,10 @@
 - [ ] Can retry submission after error
 
 ### UI/UX
+
 - [ ] Form displays correctly on mobile
 - [ ] Form displays correctly on tablet
-- [ ] Form displays correctly on desktop
+- [] Form displays correctly on desktop
 - [ ] All inputs keyboard accessible
 - [ ] Tab order logical
 - [ ] Focus visible on all inputs
@@ -217,6 +238,7 @@
 - [ ] Text readable (font size, contrast)
 
 ### Bottom Navigation
+
 - [ ] "Dashboard" button works → `/dashboard` or `/`
 - [ ] "Stocks" button works → `/stocks`
 - [ ] "Mouvements" button works → `/mouvements`
@@ -225,6 +247,7 @@
 - [ ] Current page highlight correct
 
 ### Responsive Behavior
+
 - [ ] On mobile (375px width): Form full-width, readable
 - [ ] On tablet (768px width): Form centered, comfortable
 - [ ] On desktop (1200px width): Form max-width-lg (448px)
@@ -232,6 +255,7 @@
 - [ ] Touch targets >= 44px minimum
 
 ### Cross-Browser Testing
+
 - [ ] Works in Chrome
 - [ ] Works in Firefox
 - [ ] Works in Safari
@@ -240,6 +264,7 @@
 - [ ] Works on Android Chrome
 
 ### Data Verification
+
 - [ ] Created material stored in database
 - [ ] Material has correct fields (nom, categorie, unite, description)
 - [ ] Initial stock created for correct chantier
@@ -250,6 +275,7 @@
 ## Deployment Steps
 
 ### Pre-Deployment
+
 - [ ] Run `npm run build` (no errors)
 - [ ] Run `npm run lint` (clean)
 - [ ] Run tests (if applicable)
@@ -257,6 +283,7 @@
 - [ ] Verify API endpoints exist in backend
 
 ### Deployment
+
 - [ ] Commit files to version control
 - [ ] Push to feature branch (not main)
 - [ ] Create pull/merge request
@@ -266,6 +293,7 @@
 - [ ] Deploy to staging environment
 
 ### Post-Deployment Validation
+
 - [ ] Feature works in staging
 - [ ] All tests pass in staging
 - [ ] Performance acceptable (< 2s for form submit)
@@ -274,6 +302,7 @@
 - [ ] Deploy to production
 
 ### Production Verification
+
 - [ ] Feature accessible in production
 - [ ] Material creation working
 - [ ] Stock initialization working
@@ -302,6 +331,6 @@ If critical issue found:
 
 ---
 
-**Verification Date:** ___________  
-**Verified By:** ___________  
+**Verification Date:** ___________
+**Verified By:** ___________
 **Sign-Off Date:** ___________

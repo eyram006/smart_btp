@@ -42,13 +42,7 @@ export default function MaterialForm({ loading = false, errors = {}, onSubmit })
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6">
 
-      {/* ── Erreur globale ── */}
-      {errors.general && (
-        <div role="alert" className="flex items-center gap-2 p-4 border rounded-xl bg-error-container text-on-error-container text-body-sm border-error/20">
-          <span className="material-symbols-outlined text-alert-red" style={{ fontSize: '20px' }} aria-hidden="true">error</span>
-          <span>{errors.general}</span>
-        </div>
-      )}
+      {/* Erreur globale supprimée d'ici pour être affichée en Toast dans la page parente */}
 
       {/* ── Section 1: Informations générales ── */}
       <section className="space-y-4">

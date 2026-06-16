@@ -2,13 +2,14 @@
 
 namespace App\Models\Domain\stocks;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use App\Models\Domain\chantiers\Chantier;
-use App\Models\Domain\materiaux\materiau;
+use App\Models\Domain\materiaux\Materiau;
 
 class Stock extends Model
 {
-    /** @use HasFactory<\Database\Factories\Domain\stocks\StockFactory> */
+
     use HasFactory;
     /**
      * Les attributs qui peuvent être assignés en masse.
@@ -27,13 +28,10 @@ class Stock extends Model
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'quantite' => 'decimal:2',
-            'seuil_alerte' => 'decimal:2',
-        ];
-    }
+    protected $casts = [
+        'quantite' => 'decimal:2',
+        'seuil_alerte' => 'decimal:2',
+    ];
 
 
     protected $appends = [
@@ -44,14 +42,12 @@ class Stock extends Model
     public function getStatutAttribute()
     {
         if ($this->quantite <= 0) {
-            return 'rupture';
+            return 0;
         }
-
-        if ($this->quantite <= $this->seuil_alerte) {
-            return 'stock_faible';
+        if ($this->seuil_alerte <= 0) {
+            return 100;
         }
-
-        return 'en_stock';
+        return round(min(($this->quantite / max($this->seuil_alerte, 1)) * 100, 100));
     }
 
     public function getPourcentageStockAttribute()
@@ -59,23 +55,22 @@ class Stock extends Model
         if ($this->seuil_alerte <= 0) {
             return 100;
         }
-
         return min(
             round(($this->quantite / $this->seuil_alerte) * 100),
             100
         );
     }
 
-public static function findOrCreateStock(int $chantierId, int $materiauId)
-{
-    return self::firstOrCreate([
-        'chantier_id' => $chantierId,
-        'materiau_id' => $materiauId,
-    ], [
-        'quantite' => 0,
-        'seuil_alerte' => 0,
-    ]);
-}
+    public static function findOrCreateStock(int $chantierId, int $materiauId)
+    {
+        return self::firstOrCreate([
+            'chantier_id' => $chantierId,
+            'materiau_id' => $materiauId,
+        ], [
+            'quantite' => 0,
+            'seuil_alerte' => 1,
+        ]);
+    }
 
 
     public function chantier()
@@ -87,6 +82,4 @@ public static function findOrCreateStock(int $chantierId, int $materiauId)
     {
         return $this->belongsTo(Materiau::class);
     }
-
-
 }

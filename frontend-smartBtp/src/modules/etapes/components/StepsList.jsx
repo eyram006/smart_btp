@@ -7,7 +7,7 @@ import StepCard from './StepCard';
  */
 export default function StepsList({ steps, onEdit, onDelete }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-4">
       {steps.map((step) => (
         <StepCard
           key={step.id}

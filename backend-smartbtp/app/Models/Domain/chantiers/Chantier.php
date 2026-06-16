@@ -6,10 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
+use Database\Factories\ChantierFactory;
+use App\Models\Domain\stocks\Stock;
+
 
 class Chantier extends Model
 {
     use HasFactory;
+     protected static function newFactory()
+    {
+        return ChantierFactory::new();
+    }
+protected $table = 'chantiers';
+
+
     protected $fillable = [
         'name',
         'location',
@@ -32,10 +42,10 @@ public function user()
     return $this->belongsTo(User::class);
 }
 
-// public function stocks()
-// {
-//     return $this->hasMany(Stock::class);
-// }
+public function stocks()
+{
+    return $this->has(Stock::class);
+}
 
 // public function etapes()
 // {

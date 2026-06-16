@@ -51,15 +51,9 @@ export default function useCreateMateriau(chantierId) {
       const materiauId = materiauResponse.data.id;
       setCreatedMateriau(materiauResponse.data);
 
-      // STEP 2 : Créer le stock initial
-      const stockPayload = {
-        chantier_id: chantierId,
-        materiau_id: materiauId,
-        quantite: formData.quantite_initiale || 0,
-        seuil_alerte: formData.seuil_alerte || 0,
-      };
-
-      await stockService.createStock(stockPayload);
+      // Le backend (MateriauController) crée automatiquement le stock initial 
+      // lors de la création du matériau via la méthode `updateOrCreate` sur Stock.
+      // Nous n'avons donc plus besoin d'appeler l'API de stock ici.
 
       // Succès complet
       setSuccess(true);
@@ -68,7 +62,13 @@ export default function useCreateMateriau(chantierId) {
     } catch (err) {
       // Gestion d'erreur
       if (err.response?.status === 422) {
-        setErrors(err.response.data.errors || {});
+        const dataErrs = err.response.data.errors || {};
+        // S'il y a une erreur sur materiau_id (ex: doublon), on l'affiche comme erreur globale
+        if (dataErrs.materiau_id) {
+            setErrors({ general: dataErrs.materiau_id[0] });
+        } else {
+            setErrors(dataErrs);
+        }
       } else {
         setErrors({
           general: err.response?.data?.message || 'Une erreur est survenue. Veuillez réessayer.',

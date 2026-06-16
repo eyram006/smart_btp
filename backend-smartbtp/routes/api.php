@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\users\UserController;
 use App\Http\Controllers\Api\chantiers\ChantierController;
 use App\Http\Controllers\Api\materiaux\MateriauController;
 use App\Http\Controllers\Api\stocks\StockController;
+use App\Http\Controllers\Api\etapes\EtapeController;
+use App\Http\Controllers\Api\mouvements\MouvementController;
 
 
 /********** AUTHENTICATION ROUTES **********/
@@ -18,8 +20,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
 });
-
-
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -32,7 +32,16 @@ Route::apiResource('stocks', StockController::class);
 
 Route::post('/chantiers/{chantier}/materiaux',[MateriauController::class, 'store']);
 
-// Route::apiResource('fournisseurs', FournisseurController::class);
+Route::post('/chantiers/{chantier}/etapes', [EtapeController::class, 'store']);
 
-    // Route::apiResource('mouvements', MouvementController::class);
+Route::apiResource('etapes', EtapeController::class);
+Route::get('/etapes/{chantier}', [EtapeController::class, 'getEtapesByChantierId']);
+Route::get('/chantiers/{chantier}/etapes',[EtapeController::class, 'getEtapesByChantierId']);
+
+//Route::apiResources('etapes',EtapeController::class,['index', 'store', 'show', 'update', 'destroy']);
+
+
+    Route::apiResource('mouvements', MouvementController::class);
+    // Route::apiResource('fournisseurs', FournisseurController::class);
 });
+

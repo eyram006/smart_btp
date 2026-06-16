@@ -6,25 +6,23 @@ import React from 'react';
  */
 export default function StepSearchBar({ value, onChange }) {
   return (
-    <div className="relative flex items-center border border-outline rounded-lg bg-surface-white h-[48px] form-input-focus focus-within:ring-2 focus-within:ring-primary/20 transition-all">
-      <span className="material-symbols-outlined px-3 text-on-surface-variant" aria-hidden="true">search</span>
+    <>
+      <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
       <input
-        type="search"
+        className="w-full bg-surface-white border border-outline-variant rounded-lg pl-10 pr-10 h-12 focus:border-primary focus:ring-1 focus:ring-primary outline-none text-body-lg font-body-lg"
+        placeholder="Rechercher une étape..."
+        type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="Rechercher une étape..."
-        aria-label="Rechercher une étape par nom ou type"
-        className="w-full bg-transparent border-none focus:ring-0 text-on-surface text-body-lg px-0 focus:outline-none placeholder:text-outline"
       />
       {value && (
         <button
           onClick={() => onChange('')}
-          aria-label="Effacer la recherche"
-          className="p-2 mr-1 text-on-surface-variant hover:text-primary transition-colors focus:outline-none"
+          className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-on-surface-variant hover:text-primary transition-colors focus:outline-none"
         >
-          <span className="material-symbols-outlined" style={{ fontSize: '18px' }} aria-hidden="true">close</span>
+          <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>close</span>
         </button>
       )}
-    </div>
+    </>
   );
 }

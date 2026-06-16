@@ -1,28 +1,25 @@
 <?php
 
-namespace App\Models\Domain\materiaux;
+namespace App\Models\Domain\mouvements;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Domain\stocks\Stock;
 
-
-class Materiau extends Model
+class Mouvement extends Model
 {
-        use HasFactory;
-protected $table = 'materiaux';
-
+    /** @use HasFactory<\Database\Factories\MouvementFactory> */
+    use HasFactory;
     /**
      * Les attributs qui peuvent être assignés en masse.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'nom',
-        'description',
-        'categorie',
-        'unite',
-        'image',
+        'type',
+        'notes',
+        'materiau_id',
+        'etape_id',
+        'quantite',
     ];
 
     /**
@@ -35,11 +32,5 @@ protected $table = 'materiaux';
         return [
             // Ajoutez vos conversions ici
         ];
-    }
-
-
-    public function stocks()
-    {
-        return $this->hasMany(Stock::class);
     }
 }

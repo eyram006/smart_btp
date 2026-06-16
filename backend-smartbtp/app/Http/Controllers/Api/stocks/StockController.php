@@ -7,18 +7,24 @@ use App\Models\Domain\stocks\Stock;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Domain\chantiers\Chantier;
+use Illuminate\Validation\Rule;
+
 class StockController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $stocks = Stock::all();
+            $stocks = Stock::where('chantier_id', $request->chantier_id)
+        ->with('materiau')
+        ->latest()
+        ->get();
 
-        return response()->json($stocks);
+    return response()->json([
+        'data' => $stocks
+    ]);
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -26,22 +32,35 @@ class StockController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request, Chantier $chantier): JsonResponse
     {
         $data = $request->validate([
-            'materiau_id' => ['required', 'integer', 'exists:materiau,id'],
+            'materiau_id' => [
+                'required',
+                'integer',
+                'exists:materiaux,id',
+                Rule::unique('stocks')->where(function ($query) use ($request) {
+                    return $query->where('chantier_id', $request->chantier_id);
+                })
+            ],
             'chantier_id' => ['required', 'integer', 'exists:chantiers,id'],
             'quantite' => ['required', 'numeric'],
             'seuil_alerte' => ['required', 'numeric'],
+        ], [
+            'materiau_id.unique' => 'Ce matériau est déjà enregistré dans le stock de ce chantier.',
+            'materiau_id.exists' => 'Le matériau sélectionné est invalide.',
+            'chantier_id.exists' => 'Le chantier sélectionné est invalide.'
         ]);
 
         $stock = Stock::create($data);
 
-        return response()->json($stock, 201);
+        return response()->json([
+            'message' => 'Stock initialisé avec succès.',
+            'data' => $stock
+        ], 201);
     }
 
     /**
@@ -66,7 +85,7 @@ class StockController extends Controller
     public function update(Request $request, Stock $stock): JsonResponse
     {
         $data = $request->validate([
-            'materiau_id' => ['sometimes', 'required', 'integer', 'exists:materiau,id'],
+            'materiau_id' => ['sometimes', 'required', 'integer', 'exists:materiaux,id'],
             'chantier_id' => ['sometimes', 'required', 'integer', 'exists:chantiers,id'],
             'quantite' => ['sometimes', 'required', 'numeric'],
             'seuil_alerte' => ['sometimes', 'required', 'numeric'],

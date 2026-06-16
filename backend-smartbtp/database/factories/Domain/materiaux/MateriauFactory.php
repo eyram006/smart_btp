@@ -6,6 +6,7 @@ use App\Enums\CategorieMateriau;
 use App\Enums\MateriauUnite;
 use App\Models\Domain\materiaux\Materiau;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Symfony\Component\Uid\NilUlid;
 
 /**
  * @extends Factory<Materiau>

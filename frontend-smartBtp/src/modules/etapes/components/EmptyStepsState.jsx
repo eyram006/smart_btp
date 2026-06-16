@@ -12,18 +12,18 @@ export default function EmptyStepsState({ onCreateFirst }) {
       </div>
 
       <div className="space-y-2">
-        <h3 className="text-headline-md text-on-surface">Aucune étape enregistrée</h3>
-        <p className="text-body-sm text-on-surface-variant max-w-sm">
+        <h3 className="text-headline-md font-headline-md text-on-surface">Aucune étape enregistrée</h3>
+        <p className="text-body-sm font-body-sm text-on-surface-variant max-w-sm">
           Planifiez les différentes phases de votre chantier en ajoutant des étapes de gros œuvre, second œuvre ou de contrôle qualité.
         </p>
       </div>
 
       <button
         onClick={onCreateFirst}
-        className="bg-primary hover:opacity-90 text-on-primary text-headline-md font-bold py-3 px-6 rounded-xl transition-all duration-200 active:scale-[0.98] shadow-sm flex items-center gap-2 focus:outline-none"
+        className="flex items-center justify-center gap-2 bg-primary text-on-primary h-touch-target-min px-6 rounded-lg font-bold shadow-md active:scale-95 transition-all"
       >
-        <span className="material-symbols-outlined" aria-hidden="true">add</span>
-        Créer la première étape
+        <span className="material-symbols-outlined" data-icon="add">add</span>
+        Ajouter une étape
       </button>
     </div>
   );

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\materiaux;
 
 use App\Http\Controllers\Controller;
-use App\Models\Domain\materiaux\materiau;
+use App\Models\Domain\materiaux\Materiau;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Rule;
@@ -17,7 +17,7 @@ class MateriauController extends Controller
      */
     public function index(): JsonResponse
     {
-        $materiaux = materiau::all();
+        $materiaux = Materiau::all();
         return response()->json($materiaux);
     }
 
@@ -32,17 +32,16 @@ class MateriauController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,Chantier $chantier): JsonResponse
+    public function store(Request $request, Chantier $chantier): JsonResponse
         {
         $data = $request->validate([
             'nom' => ['required', 'string'],
             'description' => ['nullable', 'string'],
-            'categorie' => ['required'],
-            'unite' => ['required'],
+            'categorie' => ['required','string'],
+            'unite' => ['required','string'],
             'quantite_initiale' => ['required', 'numeric', 'min:0'],
             'seuil_alerte' => ['required', 'numeric', 'min:0'],
         ]);
-
         $materiau = Materiau::create([
             'nom' => $data['nom'],
             'description' => $data['description'] ?? null,
@@ -64,7 +63,7 @@ class MateriauController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(materiau $materiau): JsonResponse
+    public function show(Materiau $materiau): JsonResponse
     {
         $materiau->load('stocks');
 
@@ -74,7 +73,7 @@ class MateriauController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(materiau $materiau)
+    public function edit(Materiau $materiau)
     {
         //
     }
@@ -82,7 +81,7 @@ class MateriauController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, materiau $materiau): JsonResponse
+    public function update(Request $request, Materiau $materiau): JsonResponse
     {
         $data = $request->validate([
             'nom' => ['sometimes', 'required', 'string', 'max:255'],
@@ -100,7 +99,7 @@ class MateriauController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(materiau $materiau): JsonResponse
+    public function destroy(Materiau $materiau): JsonResponse
     {
         $materiau->delete();
 

@@ -110,12 +110,12 @@ export default function StocksPage() {
         return b.quantite - a.quantite;
       case 'status-alert':
         // RUPTURE d'abord, puis FAIBLE, puis OK
-        const score = (status) => {
+        { const score = (status) => {
           if (status === 'RUPTURE') return 0;
           if (status === 'FAIBLE') return 1;
           return 2;
         };
-        return score(a.status) - score(b.status);
+        return score(a.status) - score(b.status); }
       default:
         return 0;
     }
@@ -186,12 +186,12 @@ export default function StocksPage() {
   };
 
   return (
-    <div className="bg-surface text-on-surface min-h-screen pb-24">
+    <div className="min-h-screen pb-24 bg-surface text-on-surface">
       <main className="max-w-[1200px] mx-auto px-container-margin pt-6">
         <div className="flex justify-end mb-6">
           <button
             onClick={() => navigate(`/chantiers/${chantierId}/materiaux/nouveau`)}
-            className="bg-primary text-on-primary h-touch-target-min px-4 rounded-xl text-label-caps font-semibold flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-sm focus:outline-none"
+            className="flex items-center gap-2 px-4 font-semibold transition-all shadow-sm bg-primary text-on-primary h-touch-target-min rounded-xl text-label-caps hover:opacity-90 active:scale-95 focus:outline-none"
           >
             <span className="material-symbols-outlined" style={{ fontSize: '20px' }} aria-hidden="true">add</span>
             Nouveau Matériau
@@ -201,21 +201,21 @@ export default function StocksPage() {
         {/* Barre de Recherche */}
         <div className="flex flex-col gap-4 mb-8">
           <div className="relative group">
-            <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" aria-hidden="true">
+            <span className="absolute -translate-y-1/2 material-symbols-outlined left-4 top-1/2 text-outline" aria-hidden="true">
               search
             </span>
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full h-14 pl-12 pr-4 bg-surface-white border border-outline-variant rounded-xl focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all shadow-sm"
+              className="w-full pl-12 pr-4 transition-all border shadow-sm outline-none h-14 bg-surface-white border-outline-variant rounded-xl focus:border-primary focus:ring-1 focus:ring-primary"
               placeholder="Rechercher un matériau..."
             />
           </div>
         </div>
 
         {/* Titre de Section & Compteur */}
-        <div className="flex justify-between items-end mb-4">
+        <div className="flex items-end justify-between mb-4">
           <div>
             <h2 className="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">
               {chantier ? `Stocks - ${chantier.name}` : 'Inventaire Matériaux'}
@@ -229,7 +229,7 @@ export default function StocksPage() {
           <div className="relative">
             <button
               onClick={() => setShowSortDropdown(!showSortDropdown)}
-              className="text-primary font-bold text-body-sm flex items-center gap-1 hover:opacity-80 active:scale-95 transition-all focus:outline-none"
+              className="flex items-center gap-1 font-bold transition-all text-primary text-body-sm hover:opacity-80 active:scale-95 focus:outline-none"
             >
               <span className="material-symbols-outlined text-[18px]" aria-hidden="true">
                 sort
@@ -238,7 +238,7 @@ export default function StocksPage() {
             </button>
 
             {showSortDropdown && (
-              <div className="absolute right-0 mt-2 w-48 bg-surface-white border border-outline-variant rounded-xl shadow-lg z-50 py-1 overflow-hidden">
+              <div className="absolute right-0 z-50 w-48 py-1 mt-2 overflow-hidden border shadow-lg bg-surface-white border-outline-variant rounded-xl">
                 <button
                   onClick={() => { setSortBy('name-asc'); setShowSortDropdown(false); }}
                   className={`w-full text-left px-4 py-3 text-body-sm hover:bg-surface-container transition-colors ${sortBy === 'name-asc' ? 'bg-primary-container text-on-primary-container font-semibold' : 'text-on-surface'}`}
@@ -270,7 +270,7 @@ export default function StocksPage() {
 
         {/* Message d'erreur */}
         {error && (
-          <div role="alert" className="mb-6 p-4 rounded-xl bg-error-container text-on-error-container text-body-sm flex items-center gap-2 border border-error/20">
+          <div role="alert" className="flex items-center gap-2 p-4 mb-6 border rounded-xl bg-error-container text-on-error-container text-body-sm border-error/20">
             <span className="material-symbols-outlined text-alert-red" style={{ fontSize: '20px' }} aria-hidden="true">
               error
             </span>
@@ -280,24 +280,24 @@ export default function StocksPage() {
 
         {/* Squelette de chargement */}
         {loading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" aria-busy="true" aria-label="Chargement de l'inventaire...">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3" aria-busy="true" aria-label="Chargement de l'inventaire...">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-surface-white border border-outline-variant rounded-xl p-4 card-shadow flex flex-col gap-4">
+              <div key={i} className="flex flex-col gap-4 p-4 border bg-surface-white border-outline-variant rounded-xl card-shadow">
                 <div className="flex items-start gap-4">
                   <div className="w-16 h-16 rounded-lg bg-surface-container skeleton" />
-                  <div className="flex-1 space-y-2 py-1">
-                    <div className="skeleton h-5 w-3/4 rounded" />
-                    <div className="skeleton h-4 w-1/2 rounded" />
+                  <div className="flex-1 py-1 space-y-2">
+                    <div className="w-3/4 h-5 rounded skeleton" />
+                    <div className="w-1/2 h-4 rounded skeleton" />
                   </div>
                 </div>
-                <div className="bg-surface-container-low p-3 rounded-lg flex justify-between">
+                <div className="flex justify-between p-3 rounded-lg bg-surface-container-low">
                   <div className="space-y-1">
-                    <div className="skeleton h-3 w-12 rounded" />
-                    <div className="skeleton h-6 w-8 rounded" />
+                    <div className="w-12 h-3 rounded skeleton" />
+                    <div className="w-8 h-6 rounded skeleton" />
                   </div>
                   <div className="space-y-1 text-right">
-                    <div className="skeleton h-3 w-10 rounded" />
-                    <div className="skeleton h-5 w-12 rounded" />
+                    <div className="w-10 h-3 rounded skeleton" />
+                    <div className="w-12 h-5 rounded skeleton" />
                   </div>
                 </div>
               </div>
@@ -307,15 +307,15 @@ export default function StocksPage() {
 
         {/* Liste vide */}
         {!loading && !error && sortedInventory.length === 0 && (
-          <div className="flex flex-col items-center text-center py-20 gap-4">
-            <div className="w-20 h-20 bg-primary-container text-on-primary flex items-center justify-center rounded-full">
+          <div className="flex flex-col items-center gap-4 py-20 text-center">
+            <div className="flex items-center justify-center w-20 h-20 rounded-full bg-primary-container text-on-primary">
               <span className="material-symbols-outlined" style={{ fontSize: '48px' }} aria-hidden="true">
                 inventory_2
               </span>
             </div>
             <div>
               <h3 className="text-headline-md text-on-surface">Aucun article</h3>
-              <p className="text-body-sm text-on-surface-variant mt-1 max-w-xs">
+              <p className="max-w-xs mt-1 text-body-sm text-on-surface-variant">
                 Aucun matériau ne correspond à votre recherche ou aucun stock n'est enregistré.
               </p>
             </div>
@@ -324,12 +324,12 @@ export default function StocksPage() {
 
         {/* Bento Grid des Matériaux */}
         {!loading && !error && sortedInventory.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {sortedInventory.map((item) => (
               <div
                 key={item.id}
                 onClick={() => navigate(chantierId ? `/chantiers/${chantierId}/mouvements` : `/mouvements`)}
-                className="bg-surface-white border border-outline-variant rounded-xl p-4 card-shadow active:scale-95 hover:shadow-md hover:border-primary/20 transition-all duration-150 cursor-pointer relative overflow-hidden group text-left"
+                className="relative p-4 overflow-hidden text-left transition-all duration-150 border cursor-pointer bg-surface-white border-outline-variant rounded-xl card-shadow active:scale-95 hover:shadow-md hover:border-primary/20 group"
               >
                 {/* Badge de Statut */}
                 <div className="absolute top-0 right-0 p-2">
@@ -339,16 +339,16 @@ export default function StocksPage() {
                 </div>
 
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-16 h-16 rounded-lg bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant/30 flex-shrink-0">
+                  <div className="flex items-center justify-center flex-shrink-0 w-16 h-16 overflow-hidden border rounded-lg bg-surface-container border-outline-variant/30">
                     <img
-                      className="w-full h-full object-cover"
+                      className="object-cover w-full h-full"
                       alt={item.nom}
                       src={getMaterialImage(item)}
                       loading="lazy"
                     />
                   </div>
                   <div className="pr-16">
-                    <h3 className="text-body-lg font-bold text-on-surface truncate group-hover:text-primary transition-colors">
+                    <h3 className="font-bold truncate transition-colors text-body-lg text-on-surface group-hover:text-primary">
                       {item.nom}
                     </h3>
                     <p className="text-body-sm text-on-surface-variant">
@@ -357,7 +357,7 @@ export default function StocksPage() {
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center bg-surface-container-low p-3 rounded-lg">
+                <div className="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
                   <div className="flex flex-col">
                     <span className="text-label-caps text-[10px] text-on-surface-variant">QUANTITÉ</span>
                     <span className={`text-headline-md font-bold ${getQtyTextClass(item.status)}`}>
@@ -366,14 +366,14 @@ export default function StocksPage() {
                   </div>
                   <div className="flex flex-col text-right">
                     <span className="text-label-caps text-[10px] text-on-surface-variant">UNITÉ</span>
-                    <span className="text-body-lg font-bold capitalize">
+                    <span className="font-bold capitalize text-body-lg">
                       {item.unite || 'unités'}
                     </span>
                   </div>
                 </div>
 
-                <div className="mt-3 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="text-body-sm text-primary font-bold">Enregistrer mouvement</span>
+                <div className="flex items-center justify-between mt-3 transition-opacity opacity-0 group-hover:opacity-100">
+                  <span className="font-bold text-body-sm text-primary">Enregistrer mouvement</span>
                   <span className="material-symbols-outlined text-primary" aria-hidden="true">
                     chevron_right
                   </span>
@@ -387,7 +387,7 @@ export default function StocksPage() {
       {/* Floating Action Button */}
       <button
         onClick={() => navigate(chantierId ? `/chantiers/${chantierId}/mouvements` : `/mouvements`)}
-        className="fixed bottom-24 right-container-margin w-14 h-14 bg-primary text-on-primary rounded-xl shadow-lg flex items-center justify-center active:scale-90 hover:scale-105 transition-all duration-150 z-50 focus:outline-none"
+        className="fixed z-50 flex items-center justify-center transition-all duration-150 shadow-lg bottom-24 right-container-margin w-14 h-14 bg-primary text-on-primary rounded-xl active:scale-90 hover:scale-105 focus:outline-none"
         aria-label="Enregistrer un nouveau mouvement"
       >
         <span className="material-symbols-outlined text-[32px]" aria-hidden="true">

@@ -50,6 +50,7 @@ export default function App() {
           <Route path="/chantiers/:chantierId/stocks" element={<StocksPage />} />
         </Route>
 
+
         {/* ── Fallback ── */}
         <Route path="*" element={<Navigate to="/login" replace />} />
 

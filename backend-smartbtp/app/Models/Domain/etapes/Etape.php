@@ -4,18 +4,25 @@ namespace App\Models\Domain\etapes;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\TypeEtape;
+use App\Enums\StatutEtape;
 
 class Etape extends Model
 {
-    //
+    /** @use HasFactory<\Database\Factories\Domain\etapes\EtapeFactory> */
+    use HasFactory;
     /**
      * Les attributs qui peuvent être assignés en masse.
      *
      * @var array<int, string>
      */
-    use Hasfactory;
     protected $fillable = [
-        // Ajoutez vos colonnes ici
+        'nom',
+        'type',
+        'date_debut',
+        'date_fin',
+        'statut',
+        'chantier_id',
     ];
 
     /**
@@ -23,10 +30,10 @@ class Etape extends Model
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            // Ajoutez vos conversions ici
-        ];
-    }
+    protected $casts = [
+        'date_debut' => 'date',
+        'date_fin' => 'date',
+        'type' => TypeEtape::class,
+        'statut' => StatutEtape::class,
+    ];
 }

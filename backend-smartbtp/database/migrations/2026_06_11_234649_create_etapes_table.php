@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('etapes', function (Blueprint $table) {
             $table->id();
+            $table->string('nom');
+            $table->enum('type', ['gros_oeuvre', 'second_oeuvre', 'finition', 'controle'])->default('gros_oeuvre');
+            $table->date('date_debut');
+            $table->date('date_fin');
+            $table->enum('statut', ['a_venir', 'en_cours', 'terminee'])->default('en_cours');
+            $table->unsignedBigInteger('chantier_id');
+            $table->foreign('chantier_id')->references('id')->on('chantiers')->onDelete('cascade');
             $table->timestamps();
         });
     }

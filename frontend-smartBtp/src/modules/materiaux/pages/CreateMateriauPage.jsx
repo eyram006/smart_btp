@@ -38,16 +38,28 @@ export default function CreateMateriauPage() {
           </p>
         </div>
 
-        {/* Feedback succès */}
-        {success && (
-          <div
-            role="status"
-            className="mb-6 p-4 rounded-xl bg-secondary-container text-on-secondary-container text-body-sm flex items-center gap-2 border border-secondary/20"
-          >
-            <span className="material-symbols-outlined" style={{ fontSize: '20px' }} aria-hidden="true">check_circle</span>
-            <span>Matériau créé avec succès ! Redirection en cours...</span>
-          </div>
-        )}
+        {/* Toasts de notification (Fixes en haut à droite) */}
+        <div className="fixed top-6 right-6 z-50 flex flex-col gap-3">
+          {success && (
+            <div
+              role="status"
+              className="p-4 w-80 rounded-xl bg-secondary-container text-on-secondary-container text-body-sm flex items-start gap-3 shadow-xl border border-secondary/20 transform transition-all duration-300 ease-out"
+            >
+              <span className="material-symbols-outlined shrink-0 mt-0.5" style={{ fontSize: '20px' }} aria-hidden="true">check_circle</span>
+              <span>Le matériau et son stock ont été créés avec succès ! Redirection...</span>
+            </div>
+          )}
+
+          {errors.general && (
+            <div
+              role="alert"
+              className="p-4 w-80 rounded-xl bg-error-container text-on-error-container text-body-sm flex items-start gap-3 shadow-xl border border-error/20 transform transition-all duration-300 ease-out"
+            >
+              <span className="material-symbols-outlined text-alert-red shrink-0 mt-0.5" style={{ fontSize: '20px' }} aria-hidden="true">error</span>
+              <span>{errors.general}</span>
+            </div>
+          )}
+        </div>
 
         {/* Carte formulaire */}
         <div className="bg-surface-white rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.1)] border border-outline-variant p-6 space-y-6">
